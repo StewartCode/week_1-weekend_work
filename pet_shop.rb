@@ -19,6 +19,7 @@ def total_cash(pet_shop)
   return pet_shop[:admin][:total_cash]
 end
 
+
 def add_or_remove_cash(pet_shop,ammount_of_cash)
     ammount_of_cash += pet_shop[:admin][:total_cash]
     pet_shop[:admin][:total_cash] = ammount_of_cash
@@ -131,7 +132,16 @@ def sell_pet_to_customer(pet_shop,pet,first_customer)
   end
   pet_shop[:admin][:pets_sold] += 1
   first_customer[:pets].insert(0,pet[:pets])
-  transaction_amount = pet_shop[:pets][3][:price]
+  counter = -3
+  for pets_address in pet_shop[:pets]
+      if pets_address != counter
+       counter += 1
+     else
+       break
+      end
+  end
+  p counter
+  transaction_amount = pet_shop[:pets][counter][:price]
   pet_shop[:admin][:total_cash] += transaction_amount
   first_customer[:cash] -= transaction_amount
 end
